@@ -2,6 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const boardsContainer = document.getElementById('boards-container');
     const addBoardCard = document.getElementById('add-board-card');
     const addBoardBtn = document.getElementById('add-board-btn');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalCancel = document.getElementById('modal-cancel');
+    const modalConfirm = document.getElementById('modal-confirm');
+    let boardIdToDelete = null;
 
     let boards = JSON.parse(localStorage.getItem('taskboards')) || [
         { id: Date.now(), title: 'To Do', tasks: [] }
@@ -149,12 +153,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deleteBoard(boardId) {
-        if (confirm('Are you sure you want to delete this board?')) {
-            boards = boards.filter(b => b.id !== boardId);
+        boardIdToDelete = boardId;
+        modalOverlay.classList.add('active');
+    }
+
+    modalCancel.addEventListener('click', () => {
+        modalOverlay.classList.remove('active');
+        boardIdToDelete = null;
+    });
+
+    modalConfirm.addEventListener('click', () => {
+        if (boardIdToDelete) {
+            boards = boards.filter(b => b.id !== boardIdToDelete);
             saveBoards();
             renderBoards();
+            modalOverlay.classList.remove('active');
+            boardIdToDelete = null;
         }
-    }
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            modalOverlay.classList.remove('active');
+            boardIdToDelete = null;
+        }
+    });
 
     addBoardBtn.addEventListener('click', () => {
         if (boards.length < 5) {
