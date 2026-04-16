@@ -1,13 +1,13 @@
 :root {
-    --primary: #6366f1;
-    --primary-hover: #4f46e5;
-    --bg-dark: #0f172a;
-    --glass-bg: rgba(30, 41, 59, 0.7);
+    --primary: #ffffff;
+    --primary-hover: #e2e8f0;
+    --bg-dark: #000000;
+    --glass-bg: #0a0a0a;
     --glass-border: rgba(255, 255, 255, 0.1);
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --accent: #10b981;
-    --danger: #ef4444;
+    --text-main: #ffffff;
+    --text-muted: #71717a;
+    --accent: #ffffff;
+    --danger: #ff4444;
 }
 
 * {
@@ -27,14 +27,7 @@ body {
 }
 
 .background-glow {
-    position: fixed;
-    top: -10%;
-    left: -10%;
-    width: 120%;
-    height: 120%;
-    background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
-    z-index: -1;
-    pointer-events: none;
+    display: none; /* Removed for plain black theme */
 }
 
 .main-header {
@@ -46,9 +39,7 @@ body {
     font-size: 3rem;
     font-weight: 600;
     letter-spacing: -0.05rem;
-    background: linear-gradient(to right, #fff, #94a3b8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-main);
 }
 
 .boards-wrapper {
@@ -70,7 +61,7 @@ body {
     background: transparent;
 }
 .boards-wrapper::-webkit-scrollbar-thumb {
-    background: var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
 }
 
@@ -83,20 +74,17 @@ body {
 }
 
 .board-card {
-    width: 450px; /* Larger board */
+    width: 450px;
     height: 600px;
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
-    border-radius: 2.5rem;
+    border-radius: 1.5rem;
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    scroll-snap-align: center; /* Snap to center */
+    scroll-snap-align: center;
     animation: fadeIn 0.5s ease-out;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes fadeIn {
@@ -163,10 +151,10 @@ body {
 .input-wrapper {
     display: flex;
     gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    border-radius: 0.75rem;
-    padding: 0.5rem;
+    background: transparent;
+    border-bottom: 1px solid var(--glass-border);
+    border-radius: 0;
+    padding: 0.5rem 0;
 }
 
 .input-wrapper input {
@@ -179,20 +167,19 @@ body {
 }
 
 .add-task-btn {
-    background: var(--primary);
+    background: transparent;
     border: none;
-    border-radius: 0.5rem;
     width: 2.5rem;
     height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--text-muted);
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: color 0.2s;
 }
 
-.add-task-btn:hover { transform: scale(1.05); }
+.add-task-btn:hover { color: var(--text-main); }
 
 .list-section {
     flex: 1;
@@ -223,17 +210,20 @@ body {
 .todo-item.completed { opacity: 0.5; }
 
 .checkbox-container {
-    width: 1.2rem;
-    height: 1.2rem;
-    border: 2px solid var(--primary);
-    border-radius: 0.4rem;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid var(--text-muted);
+    border-radius: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.completed .checkbox-container { background: var(--primary); }
-.checkbox-container svg { width: 0.8rem; color: white; display: none; }
+.completed .checkbox-container { 
+    background: var(--text-main); 
+    border-color: var(--text-main);
+}
+.checkbox-container svg { width: 0.7rem; color: #000; display: none; }
 .completed .checkbox-container svg { display: block; }
 
 .todo-text { flex: 1; font-size: 0.9rem; }
@@ -269,11 +259,11 @@ body {
 }
 
 .add-card button {
-    background: rgba(255, 255, 255, 0.02);
-    border: 2px dashed var(--glass-border);
-    border-radius: 2rem;
-    width: 150px; /* Kept small as requested */
-    height: 300px; /* Kept small as requested */
+    background: transparent;
+    border: 1px dashed var(--glass-border);
+    border-radius: 1.5rem;
+    width: 150px;
+    height: 300px;
     color: var(--text-muted);
     display: flex;
     flex-direction: column;
@@ -283,7 +273,7 @@ body {
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
 }
 
 .add-card svg {
@@ -293,11 +283,9 @@ body {
 }
 
 .add-card:hover button {
-    color: white;
-    border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.08);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+    color: var(--text-main);
+    border-color: var(--text-main);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .add-card:hover svg {
@@ -306,7 +294,7 @@ body {
 
 /* Custom Scrollbar for List Section */
 .list-section::-webkit-scrollbar { width: 4px; }
-.list-section::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+.list-section::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
 
 /* Modal Styles */
 .modal-overlay {
@@ -388,12 +376,10 @@ body {
 }
 
 #modal-confirm.danger {
-    background: var(--danger);
-    color: white;
+    background: var(--text-main);
+    color: #000;
 }
 
 #modal-confirm.danger:hover {
-    background: #dc2626;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    background: #e2e8f0;
 }
