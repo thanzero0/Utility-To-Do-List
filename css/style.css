@@ -84,13 +84,9 @@ body {
     flex-direction: column;
     flex-shrink: 0;
     scroll-snap-align: center;
-    animation: fadeIn 0.5s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* Animation removed as requested */
 
 .board-header {
     margin-bottom: 1.5rem;
