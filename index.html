@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streamline Tasks | Premium To-Do List</title>
-    <meta name="description" content="A minimalist, premium to-do list application to boost your productivity.">
+    <title>Task Boards | Premium To-Do</title>
+    <meta name="description" content="Manage multiple to-do lists with a premium horizontal board experience.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -12,29 +12,21 @@
 </head>
 <body>
     <div class="background-glow"></div>
-    <main class="app-container">
-        <header>
-            <h1 id="app-title">Task</h1>
-        </header>
+    
+    <header class="main-header">
+        <h1 id="app-title">Taskboards</h1>
+    </header>
 
-        <section class="input-section">
-            <div class="input-wrapper">
-                <input type="text" id="todo-input" placeholder="What needs to be done?" aria-label="New task input">
-                <button id="add-btn" aria-label="Add task">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    <main class="boards-wrapper">
+        <div id="boards-container" class="boards-container">
+            <!-- Boards will be injected here -->
+            <div id="add-board-card" class="board-card add-card">
+                <button id="add-board-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>New Board</span>
                 </button>
             </div>
-        </section>
-
-        <section class="list-section">
-            <div class="stats-bar">
-                <span id="task-count">0 tasks remaining</span>
-                <button id="clear-completed" class="text-btn">Clear Completed</button>
-            </div>
-            <ul id="todo-list">
-                <!-- Tasks will be injected here -->
-            </ul>
-        </section>
+        </div>
     </main>
 
     <script src="js/script.js"></script>
