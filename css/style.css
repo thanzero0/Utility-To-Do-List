@@ -111,6 +111,13 @@ body {
     align-items: center;
 }
 
+.title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 80%;
+}
+
 .board-title {
     font-size: 1.25rem;
     font-weight: 600;
@@ -118,7 +125,23 @@ body {
     border: none;
     background: transparent;
     outline: none;
-    width: 80%;
+    width: 100%;
+}
+
+.task-count {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    width: fit-content;
+    transition: all 0.3s ease;
+}
+
+.task-count.all-done {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--accent);
 }
 
 .delete-board-btn {
