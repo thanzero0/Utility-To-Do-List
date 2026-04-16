@@ -249,45 +249,60 @@ body {
 
 .todo-item:hover .delete-task-btn { opacity: 1; }
 
-/* Add Card Styles - Smaller and Sleeker */
+/* Add Card Styles - Transparent container with same size as board for snapping */
 .add-card {
-    width: 150px; /* Smaller width */
-    height: 300px; /* Shorter height */
-    border: 2px dashed var(--glass-border);
-    background: rgba(255, 255, 255, 0.02);
+    width: 450px; /* Same as board-card for perfect snapping */
+    height: 600px; /* Same as board-card */
+    border: none;
+    background: transparent;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: all 0.3s;
     scroll-snap-align: center;
-    border-radius: 2rem;
+    display: flex;
+    transition: none;
 }
 
 .add-card:hover {
-    border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.08);
-    transform: translateY(-5px);
+    background: transparent;
+    transform: none;
 }
 
 .add-card button {
-    background: none;
-    border: none;
+    background: rgba(255, 255, 255, 0.02);
+    border: 2px dashed var(--glass-border);
+    border-radius: 2rem;
+    width: 150px; /* Kept small as requested */
+    height: 300px; /* Kept small as requested */
     color: var(--text-muted);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .add-card svg {
     width: 32px;
     height: 32px;
+    transition: transform 0.3s ease;
 }
 
-.add-card:hover button { color: white; }
+.add-card:hover button {
+    color: white;
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.08);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+}
+
+.add-card:hover svg {
+    transform: rotate(90deg);
+}
 
 /* Custom Scrollbar for List Section */
 .list-section::-webkit-scrollbar { width: 4px; }
