@@ -19,10 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderTodos() {
         todoList.innerHTML = '';
-        todos.forEach((todo, index) => {
+        
+        // Sort: active tasks first, completed tasks last
+        const sortedTodos = [...todos].sort((a, b) => {
+            if (a.completed === b.completed) return 0;
+            return a.completed ? 1 : -1;
+        });
+
+        sortedTodos.forEach((todo) => {
             const li = document.createElement('li');
             li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
-            li.setAttribute('data-index', index);
             
             li.innerHTML = `
                 <div class="checkbox-container">
@@ -36,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             li.addEventListener('click', (e) => {
                 if (e.target.closest('.delete-btn')) {
-                    deleteTodo(index);
+                    deleteTodo(todo.id);
                 } else {
-                    toggleTodo(index);
+                    toggleTodo(todo.id);
                 }
             });
 
@@ -50,29 +56,29 @@ document.addEventListener('DOMContentLoaded', () => {
     function addTodo() {
         const text = input.value.trim();
         if (text) {
-            todos.push({ text, completed: false });
+            // Use timestamp as a simple unique ID
+            todos.push({ 
+                id: Date.now(), 
+                text, 
+                completed: false 
+            });
             input.value = '';
             saveTodos();
             renderTodos();
-            
-            // Subtle animation feedback
-            const lastItem = todoList.lastElementChild;
-            if (lastItem) {
-                lastItem.style.animation = 'none';
-                lastItem.offsetHeight; // trigger reflow
-                lastItem.style.animation = 'slideIn 0.3s ease-out';
-            }
         }
     }
 
-    function toggleTodo(index) {
-        todos[index].completed = !todos[index].completed;
-        saveTodos();
-        renderTodos();
+    function toggleTodo(id) {
+        const todo = todos.find(t => t.id === id);
+        if (todo) {
+            todo.completed = !todo.completed;
+            saveTodos();
+            renderTodos();
+        }
     }
 
-    function deleteTodo(index) {
-        todos.splice(index, 1);
+    function deleteTodo(id) {
+        todos = todos.filter(t => t.id !== id);
         saveTodos();
         renderTodos();
     }
