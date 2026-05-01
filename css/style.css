@@ -128,16 +128,31 @@ body {
     color: var(--accent);
 }
 
-.delete-board-btn {
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.delete-board-btn, .reset-board-btn {
     background: none;
     border: none;
     color: var(--text-muted);
     cursor: pointer;
-    transition: color 0.2s;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .delete-board-btn:hover {
     color: var(--danger);
+    transform: scale(1.1);
+}
+
+.reset-board-btn:hover {
+    color: var(--text-main);
+    transform: rotate(-180deg);
 }
 
 .input-section {

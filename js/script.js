@@ -44,9 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="text" class="board-title" value="${board.title}" placeholder="Board Name">
                     <span class="task-count">0/0</span>
                 </div>
-                <button class="delete-board-btn" title="Delete Board">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                </button>
+                <div class="header-actions">
+                    <button class="reset-board-btn" title="Reset Aktivitas">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                    </button>
+                    <button class="delete-board-btn" title="Delete Board">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </button>
+                </div>
             </div>
             <div class="input-section">
                 <div class="input-wrapper">
@@ -65,6 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
         titleInput.addEventListener('change', (e) => {
             board.title = e.target.value;
             saveBoards();
+        });
+
+        const resetBoardBtn = div.querySelector('.reset-board-btn');
+        resetBoardBtn.addEventListener('click', () => {
+            if (confirm('Reset semua aktivitas di papan ini?')) {
+                board.tasks = [];
+                saveBoards();
+                renderBoards();
+            }
         });
 
         const deleteBoardBtn = div.querySelector('.delete-board-btn');
