@@ -379,3 +379,12 @@ body {
 #modal-confirm.danger:hover {
     background: #e2e8f0;
 }
+
+#modal-confirm.primary {
+    background: var(--text-main);
+    color: #000;
+}
+
+#modal-confirm.primary:hover {
+    background: #e2e8f0;
+}

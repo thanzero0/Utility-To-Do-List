@@ -152,49 +152,74 @@ document.addEventListener('DOMContentLoaded', () => {
         renderBoards();
     }
 
-    function deleteBoard(boardId) {
-        boardIdToDelete = boardId;
+    let modalAction = null; // 'delete' or 'create'
+
+    function showModal(type, boardId = null) {
+        modalAction = type;
+        if (type === 'delete') {
+            boardIdToDelete = boardId;
+            document.getElementById('modal-title').textContent = 'Hapus Papan?';
+            document.getElementById('modal-message').textContent = 'Tindakan ini tidak dapat dibatalkan.';
+            modalConfirm.textContent = 'Hapus';
+            modalConfirm.className = 'danger';
+        } else if (type === 'create') {
+            document.getElementById('modal-title').textContent = 'Buat Papan Baru?';
+            document.getElementById('modal-message').textContent = 'Tambahkan papan baru ke daftar Anda.';
+            modalConfirm.textContent = 'Buat';
+            modalConfirm.className = 'primary';
+        }
         modalOverlay.classList.add('active');
+    }
+
+    function deleteBoard(boardId) {
+        showModal('delete', boardId);
     }
 
     modalCancel.addEventListener('click', () => {
         modalOverlay.classList.remove('active');
         boardIdToDelete = null;
+        modalAction = null;
     });
 
     modalConfirm.addEventListener('click', () => {
-        if (boardIdToDelete) {
+        if (modalAction === 'delete' && boardIdToDelete) {
             boards = boards.filter(b => b.id !== boardIdToDelete);
             saveBoards();
             renderBoards();
-            modalOverlay.classList.remove('active');
-            boardIdToDelete = null;
+        } else if (modalAction === 'create') {
+            boards.push({ id: Date.now(), title: 'To Do Baru', tasks: [] });
+            saveBoards();
+            renderBoards();
+            setTimeout(() => {
+                document.querySelector('.boards-wrapper').scrollLeft = boardsContainer.scrollWidth;
+            }, 100);
         }
+        modalOverlay.classList.remove('active');
+        boardIdToDelete = null;
+        modalAction = null;
     });
 
     modalOverlay.addEventListener('click', (e) => {
         if (e.target === modalOverlay) {
             modalOverlay.classList.remove('active');
             boardIdToDelete = null;
+            modalAction = null;
         }
     });
 
     addBoardBtn.addEventListener('click', () => {
         if (boards.length < 5) {
-            boards.push({ id: Date.now(), title: 'New Board', tasks: [] });
-            saveBoards();
-            renderBoards();
-            
-            // Scroll to the end
-            setTimeout(() => {
-                document.querySelector('.boards-wrapper').scrollLeft = boardsContainer.scrollWidth;
-            }, 100);
+            showModal('create');
+        } else {
+            alert('Maksimal 5 papan diperbolehkan.');
         }
     });
 
     addBoardCard.addEventListener('click', (e) => {
         if (e.target.closest('#add-board-btn')) return; // handled by btn
-        addBoardBtn.click();
+        if (boards.length < 5) {
+            showModal('create');
+        }
     });
 
     // Initial render
