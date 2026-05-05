@@ -15,14 +15,20 @@
     <main class="boards-wrapper">
         <div id="boards-container" class="boards-container">
             <!-- Boards will be injected here -->
-            <div id="add-board-card" class="board-card add-card">
-                <button id="add-board-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>New Board</span>
-                </button>
-            </div>
+
         </div>
     </main>
+
+    <div class="floating-controls">
+        <div class="fab-group" id="fabGroup">
+            <div class="fab-options">
+                <button id="add-board-btn" class="fab-btn" title="New Board" aria-label="New Board">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+            </div>
+            <button class="fab-btn main-fab" onclick="toggleMainFab()" aria-label="Menu">☰</button>
+        </div>
+    </div>
 
     <div id="modal-overlay" class="modal-overlay">
         <div class="modal-content">

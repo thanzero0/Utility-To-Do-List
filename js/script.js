@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const boardsContainer = document.getElementById('boards-container');
-    const addBoardCard = document.getElementById('add-board-card');
     const addBoardBtn = document.getElementById('add-board-btn');
     const modalOverlay = document.getElementById('modal-overlay');
     const modalCancel = document.getElementById('modal-cancel');
@@ -16,20 +15,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderBoards() {
-        // Remove existing boards but keep the add-board-card
-        const existingBoards = document.querySelectorAll('.board-card:not(.add-card)');
+        // Remove existing boards
+        const existingBoards = document.querySelectorAll('.board-card');
         existingBoards.forEach(b => b.remove());
 
         boards.forEach((board) => {
             const boardEl = createBoardElement(board);
-            boardsContainer.insertBefore(boardEl, addBoardCard);
+            boardsContainer.appendChild(boardEl);
         });
 
-        // Toggle add board card visibility (max 5)
+        // Toggle add board btn visibility (max 5)
         if (boards.length >= 5) {
-            addBoardCard.style.display = 'none';
+            if (addBoardBtn) addBoardBtn.style.display = 'none';
         } else {
-            addBoardCard.style.display = 'flex';
+            if (addBoardBtn) addBoardBtn.style.display = 'flex';
         }
     }
 
@@ -229,13 +228,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    addBoardCard.addEventListener('click', (e) => {
-        if (e.target.closest('#add-board-btn')) return; // handled by btn
-        if (boards.length < 5) {
-            showModal('create');
-        }
-    });
+
 
     // Initial render
     renderBoards();
+});
+
+function toggleMainFab() {
+    const fabGroup = document.getElementById("fabGroup");
+    const btn = document.querySelector(".main-fab");
+    if(fabGroup && btn) {
+        fabGroup.classList.toggle("active");
+        btn.classList.toggle("status-active", fabGroup.classList.contains("active"));
+    }
+}
+
+document.addEventListener("click", (e) => {
+    if (!e.target.closest("#fabGroup")) {
+        const fabGroup = document.getElementById("fabGroup");
+        const btn = document.querySelector(".main-fab");
+        if(fabGroup && btn && fabGroup.classList.contains("active")) {
+            fabGroup.classList.remove("active");
+            btn.classList.remove("status-active");
+        }
+    }
 });
