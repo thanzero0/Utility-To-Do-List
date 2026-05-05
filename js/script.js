@@ -234,6 +234,19 @@ document.addEventListener('DOMContentLoaded', () => {
     renderBoards();
 });
 
+// Cursor Glow
+const cursorGlow = document.getElementById('cursor-glow');
+document.addEventListener('mousemove', (e) => {
+    if (cursorGlow) {
+        cursorGlow.style.left = e.clientX + 'px';
+        cursorGlow.style.top = e.clientY + 'px';
+        cursorGlow.style.opacity = '1';
+    }
+});
+document.addEventListener('mouseleave', () => {
+    if (cursorGlow) cursorGlow.style.opacity = '0';
+});
+
 function toggleMainFab() {
     const fabGroup = document.getElementById("fabGroup");
     const btn = document.querySelector(".main-fab");
